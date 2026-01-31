@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient, Role, Category } from "@prisma/client";
 import { hashPassword } from "../src/lib/password";
 
 const prisma = new PrismaClient();
@@ -55,9 +55,9 @@ const main = async () => {
   });
 
   const categoryList = await prisma.category.findMany();
-  const audio = categoryList.find((cat) => cat.slug === "audio")!;
-  const wearables = categoryList.find((cat) => cat.slug === "wearables")!;
-  const home = categoryList.find((cat) => cat.slug === "home")!;
+  const audio = categoryList.find((cat: Category) => cat.slug === "audio")!;
+  const wearables = categoryList.find((cat: Category) => cat.slug === "wearables")!;
+  const home = categoryList.find((cat: Category) => cat.slug === "home")!;
 
   const products = await prisma.product.createMany({
     data: [
